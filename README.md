@@ -10,4 +10,4 @@ The plan is the following:
 4. AI -> Text
 5. Text -> Voice
 
-For updates, please check the #project-marvin channel on our [Discord server](https://discord.com/invite/424xxTZVYX).
+For updates, please check the `#project-marvin` channel on our [Discord server](https://discord.com/invite/424xxTZVYX).

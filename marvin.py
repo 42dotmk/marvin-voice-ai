@@ -1,11 +1,14 @@
 from ollama import Client
+from RealtimeTTS import TextToAudioStream, SystemEngine
 
-client = Client(host='http://192.168.100.96:11435')
+engine = SystemEngine() 
+stream = TextToAudioStream(engine)
+
+client = Client(host='https://llama.42.mk/')
 
 def chat(text):
-  response = "";
-  
-  stream = client.chat(
+  print(text + " (sent to Llama)")
+  for response in client.chat(
     model='llama2', 
     messages=[
       {
@@ -14,10 +17,6 @@ def chat(text):
       },
     ],
     stream=True
-  )
-
-  for chunk in stream:
-    response += chunk['message']['content']
-
-  return response
-  
+  ):
+    if (text_chunk := response['message']['content']) is not None: 
+      yield text_chunk

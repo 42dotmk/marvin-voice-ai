@@ -1,10 +1,12 @@
 import speech_recognition as sr
+from RealtimeTTS import TextToAudioStream, SystemEngine
 from gtts import gTTS
 import os
 from marvin import chat
 
 r = sr.Recognizer()
-
+engine = SystemEngine() 
+stream = TextToAudioStream(engine)
 
 def record_text():
     while (1):
@@ -22,13 +24,9 @@ def record_text():
             print("Could not understand audio")
 
 
-def speak_text(text):
-    speechFile = gTTS(text=text, tld='ie', lang='en', slow=False)
-    speechFile.save("speech.mp3")
-    os.system("mpg321 speech.mp3")
-
-
-while (1):
+while(1):
+    print("Say something!")
     text = record_text()
-    response = chat(text)
-    speak_text(response)
+    text_stream = chat(text)
+    stream.feed(text_stream)
+    stream.play_async()
